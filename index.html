@@ -27,6 +27,13 @@
             line-height: 1.6;
         }
 
+        /* --- OPTIMIZACIÓN DE NITIDEZ DE IMAGEN --- */
+        img {
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: crisp-edges; 
+            -ms-interpolation-mode: nearest-neighbor; 
+        }
+
         /* --- ANNOUNCEMENT BAR --- */
         .announcement-bar {
             background-color: var(--color-primary);
@@ -88,6 +95,7 @@
             left: 0;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
+            image-rendering: inherit; 
         }
         
         .slider-image.active { opacity: 1; z-index: 10; }
@@ -126,6 +134,7 @@
             opacity: 0.6;
             transition: 0.3s;
             aspect-ratio: 1/1;
+            image-rendering: inherit; 
         }
         .thumb-img.active {
             border-color: var(--color-primary);
@@ -171,26 +180,6 @@
 
         .payment-methods { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; opacity: 0.6; font-size: 1.5rem;}
 
-        /* ACCORDIONS (DETAILS) */
-        .accordion-group { border-top: 1px solid var(--color-border); }
-        details { border-bottom: 1px solid var(--color-border); }
-        summary {
-            padding: 18px 0;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '+'; font-size: 1.5rem; font-weight: 400; color: var(--color-secondary); }
-        details[open] summary::after { content: '−'; }
-        .accordion-content { padding-bottom: 18px; color: var(--color-secondary); font-size: 0.95rem; }
-        .accordion-content ul { padding-left: 20px; list-style-type: disc; margin-top: 10px; }
-        .accordion-content li { margin-bottom: 8px; }
-
         @media (max-width: 900px) {
             .header { flex-direction: column; text-align: center; gap: 15px; }
             .header-slogan { max-width: 100%; text-align: center; }
@@ -223,49 +212,24 @@
         
         <div class="product-media">
             <div class="product-image-container">
-                <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-                <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="slider-btn prev" id="btn-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next" id="btn-next"><i class="fas fa-chevron-right"></i></button>
                 
                 <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/usando+el+producto.png" class="slider-image active">
+                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/caracteristicas.png" class="slider-image">
                 <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/Sincronizaci%C3%B3n+Cu%C3%A1ntica+Armoniza+ambos+hemisferios+del+cerebro+mediante+tecnolog%C3%ADa+ac%C3%BAstica+avanzada.+Biohacking+Espiritual+Eleva+la+energ%C3%ADa+interior+y+la+vibraci%C3%B3n+personal+de+manera+r%C3%A1pida.+Moto.png" class="slider-image">
                 <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/meditacion.png" class="slider-image">
                 <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/Dise%C3%B1o+sin+t%C3%ADtulo+(20).png" class="slider-image">
             </div>
             
             <div class="thumbnails">
-                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/usando+el+producto.png" class="thumb-img active" onclick="goToSlide(0)">
-                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/Sincronizaci%C3%B3n+Cu%C3%A1ntica+Armoniza+ambos+hemisferios+del+cerebro+mediante+tecnolog%C3%ADa+ac%C3%BAstica+avanzada.+Biohacking+Espiritual+Eleva+la+energ%C3%ADa+interior+y+la+vibraci%C3%B3n+personal+de+manera+r%C3%A1pida.+Moto.png" class="thumb-img" onclick="goToSlide(1)">
-                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/meditacion.png" class="thumb-img" onclick="goToSlide(2)">
-                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/Dise%C3%B1o+sin+t%C3%ADtulo+(20).png" class="thumb-img" onclick="goToSlide(3)">
+                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/usando+el+producto.png" class="thumb-img active" data-index="0">
+                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/caracteristicas.png" class="thumb-img" data-index="1">
+                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/Sincronizaci%C3%B3n+Cu%C3%A1ntica+Armoniza+ambos+hemisferios+del+cerebro+mediante+tecnolog%C3%ADa+ac%C3%BAstica+avanzada.+Biohacking+Espiritual+Eleva+la+energ%C3%ADa+interior+y+la+vibraci%C3%B3n+personal+de+manera+r%C3%A1pida.+Moto.png" class="thumb-img" data-index="2">
+                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/meditacion.png" class="thumb-img" data-index="3">
+                <img src="https://f005.backblazeb2.com/file/BACKUP-DE-IMAGENES/ESPIRITUALIDAD/Dise%C3%B1o+sin+t%C3%ADtulo+(20).png" class="thumb-img" data-index="4">
             </div>
         </div>
-
-        <script>
-            let currentSlide = 0;
-            const slides = document.querySelectorAll('.slider-image');
-            const thumbs = document.querySelectorAll('.thumb-img');
-            const totalSlides = slides.length;
-
-            function updateSlider() {
-                slides.forEach(slide => slide.classList.remove('active'));
-                thumbs.forEach(thumb => thumb.classList.remove('active'));
-                
-                slides[currentSlide].classList.add('active');
-                thumbs[currentSlide].classList.add('active');
-            }
-
-            function changeSlide(direction) {
-                currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-                updateSlider();
-            }
-
-            function goToSlide(index) {
-                currentSlide = index;
-                updateSlider();
-            }
-
-            setInterval(() => changeSlide(1), 4000);
-        </script>
 
         <div class="product-info">
             <div class="product-breadcrumb">Inicio / Catálogo / Biohacking / NeuroSync</div>
@@ -298,13 +262,20 @@
             </a>
 
             <div class="payment-methods">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fab fa-cc-amex"></i>
-                <i class="fab fa-cc-paypal"></i>
-                <i class="fab fa-cc-apple-pay"></i>
+                <i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-amex"></i><i class="fab fa-cc-paypal"></i><i class="fab fa-cc-apple-pay"></i>
             </div>
-
+<style>
+                .accordion-group { border-top: 1px solid var(--color-border); }
+                details { border-bottom: 1px solid var(--color-border); }
+                summary { padding: 18px 0; font-weight: 600; font-size: 1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+                summary::-webkit-details-marker { display: none; }
+                summary::after { content: '+'; font-size: 1.5rem; font-weight: 400; color: var(--color-secondary); }
+                details[open] summary::after { content: '−'; }
+                .accordion-content { padding-bottom: 18px; color: var(--color-secondary); font-size: 0.95rem; }
+                .accordion-content ul { padding-left: 20px; list-style-type: disc; margin-top: 10px; }
+                .accordion-content li { margin-bottom: 8px; }
+            </style>
+            
             <div class="accordion-group">
                 <details open>
                     <summary>📦 ¿Qué incluye tu compra?</summary>
@@ -332,13 +303,9 @@
             </div>
         </div>
     </main>
-<style>
-        .mixer-section {
-            background-color: var(--color-primary);
-            color: white;
-            padding: 80px 5%;
-            text-align: center;
-        }
+
+    <style>
+        .mixer-section { background-color: var(--color-primary); color: white; padding: 80px 5%; text-align: center; }
         .mixer-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.5px; }
         .mixer-subtitle { font-size: 1.1rem; color: #9ca3af; max-width: 800px; margin: 0 auto 50px auto; line-height: 1.8; }
         .mixer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; text-align: left; }
@@ -373,16 +340,8 @@
     </section>
 
     <style>
-        .image-with-text {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            background-color: #f9fafb;
-            border-top: 1px solid var(--color-border);
-            border-bottom: 1px solid var(--color-border);
-        }
-        /* Garantizando el formato 1:1 estricto */
-        .iwt-image img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
+        .image-with-text { display: grid; grid-template-columns: 1fr 1fr; align-items: center; background-color: #f9fafb; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+        .iwt-image img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; image-rendering: inherit; }
         .iwt-content { padding: 80px 10%; }
         .iwt-content h2 { font-size: 2rem; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.5px;}
         .iwt-content p { color: var(--color-secondary); font-size: 1.1rem; margin-bottom: 30px; }
@@ -450,5 +409,58 @@
         <p style="font-size: 0.85rem;">&copy; 2026 NeuroSync. Todos los derechos reservados.</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slider-image');
+            const thumbs = document.querySelectorAll('.thumb-img');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            let slideInterval;
+
+            if(slides.length > 0) {
+                function updateSlider() {
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    thumbs.forEach(thumb => thumb.classList.remove('active'));
+                    
+                    slides[currentSlide].classList.add('active');
+                    thumbs[currentSlide].classList.add('active');
+                }
+
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateSlider();
+                    resetTimer();
+                }
+
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateSlider();
+                    resetTimer();
+                }
+
+                function resetTimer() {
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 4500); // 4.5 segundos
+                }
+
+                // Event Listeners (A prueba de fallos)
+                btnNext.addEventListener('click', nextSlide);
+                btnPrev.addEventListener('click', prevSlide);
+
+                thumbs.forEach((thumb) => {
+                    thumb.addEventListener('click', function() {
+                        currentSlide = parseInt(this.getAttribute('data-index'));
+                        updateSlider();
+                        resetTimer();
+                    });
+                });
+
+                // Iniciar automático
+                resetTimer(); 
+            }
+        });
+    </script>
 </body>
 </html>
